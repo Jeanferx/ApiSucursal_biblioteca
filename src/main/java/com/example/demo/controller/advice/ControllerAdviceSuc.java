@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import com.example.demo.exception.ErrorMessage;
+import com.example.demo.exception.ExcepcionCiudad;
 import com.example.demo.exception.ExcepcionSuc;
 import com.example.demo.exception.SucursalInvalidaException;
 
@@ -76,6 +77,16 @@ public class ControllerAdviceSuc {
 
         return new ResponseEntity<>(errorMessage, HttpStatus.INTERNAL_SERVER_ERROR);
     }
+    @ExceptionHandler(ExcepcionCiudad.class)
+    public ResponseEntity<ErrorMessage> handleCiudadInvalidaException(
+    		ExcepcionCiudad ex, WebRequest request) {
+        
+        ErrorMessage errorMessage = new ErrorMessage();
+        errorMessage.setMessages(List.of(ex.getMessage()));
+
+        return new ResponseEntity<>(errorMessage, HttpStatus.BAD_REQUEST);
+    }
+
 
     private String formatFieldError(FieldError fieldError) {
         return String.format("Campo '%s': %s. Valor recibido: %s", 

@@ -22,13 +22,15 @@ public class MapperImplSuc implements MapperSuc{
 
 	@Override
 	public DtoResponseSuc ModelToDto(ModelSuc model) {
-		if(model==null)
-			return null;
-		DtoResponseSuc dto=new DtoResponseSuc();
-		dto.setId(model.getId());
-		dto.setCiudad(model.getCiudad());
-		dto.setName(model.getName());
-		dto.setTelefono(model.getTelefono());
-		return dto;
+	    if(model == null) return null;
+	    
+	    DtoResponseSuc dto = new DtoResponseSuc();
+	    dto.setId(model.getId());
+	    dto.setName(model.getName());
+	    dto.setTelefono(model.getTelefono());
+	    dto.setCiudad(model.getCiudadNombre()); // ← ahora devuelve nombre
+	    
+	    return dto;
 	}
+
 }
