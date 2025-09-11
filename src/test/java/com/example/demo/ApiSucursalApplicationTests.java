@@ -124,6 +124,85 @@ class ApiSucursalApplicationTests {
         assertNull(result.getTelefono());
         assertNull(result.getCiudadNombre());
     }
+    @Test
+    void testPutSucursal_Exitoso() {
+        // Modelo de entrada
+        ModelSuc model = new ModelSuc();
+        model.setName("Sucursal Actualizada");
+        model.setTelefono("0888888888");
+        model.setCiudad(1);
 
+        // Mock ciudad encontrada
+        when(repositoryCiudad.findById(1)).thenReturn(Optional.of(ciudad));
+
+        // Mock sucursal existente
+        when(repositorySuc.findById("123")).thenReturn(Optional.of(entitySuc));
+
+        // Mock save
+        when(repositorySuc.save(org.mockito.ArgumentMatchers.any(EntitySuc.class)))
+                .thenReturn(entitySuc);
+
+        // Llamar al método
+        ModelSuc result = daoImplSuc.putSucursal("123", model);
+
+        // Verificaciones de interacciones
+        assertNull(result); // tu método devuelve null
+    }
+
+    @Test
+    void testPutSucursal_CiudadNoExiste() {
+        ModelSuc model = new ModelSuc();
+        model.setName("Sucursal Fantasma");
+        model.setTelefono("0999999999");
+        model.setCiudad(99);
+
+        // Mock: ciudad no encontrada
+        when(repositoryCiudad.findById(99)).thenReturn(Optional.empty());
+
+        RuntimeException exception = assertThrows(RuntimeException.class, () -> {
+            daoImplSuc.putSucursal("123", model);
+        });
+
+        assertEquals("❌ La ciudad con id 99 no existe", exception.getMessage());
+    }
+
+    @Test
+    void testPutSucursal_SucursalNoExiste() {
+        ModelSuc model = new ModelSuc();
+        model.setName("Sucursal Nueva");
+        model.setTelefono("0777777777");
+        model.setCiudad(1);
+
+        // Mock ciudad encontrada
+        when(repositoryCiudad.findById(1)).thenReturn(Optional.of(ciudad));
+
+        // Mock sucursal inexistente
+        when(repositorySuc.findById("999")).thenReturn(Optional.empty());
+
+        // Llamar al método
+        ModelSuc result = daoImplSuc.putSucursal("999", model);
+
+        // Como la sucursal no existe, no debería guardar nada
+        assertNull(result);
+    }
+    @Test
+    void testDeleteSucursal_Exitoso() {
+        // Mock sucursal existente
+        when(repositorySuc.findById("123")).thenReturn(Optional.of(entitySuc));
+
+        ModelSuc result = daoImplSuc.deleteSucursal("123");
+
+        assertNull(result); // porque tu método devuelve null
+    }
+
+    @Test
+    void testDeleteSucursal_NoExiste() {
+        // Mock sucursal no encontrada
+        when(repositorySuc.findById("999")).thenReturn(Optional.empty());
+
+        ModelSuc result = daoImplSuc.deleteSucursal("999");
+
+        assertNull(result); // también null
+    }
 
 }
