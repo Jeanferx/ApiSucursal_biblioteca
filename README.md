@@ -24,7 +24,7 @@ Permite registrar, actualizar, eliminar y consultar la información de las sucur
 - Eliminar sucursal existente  
 
 ---
-## 🔗 Endpoints principales
+## Endpoints principales
 
 | Método | Endpoint | Descripción |
 |--------|-----------|-------------|
@@ -36,7 +36,7 @@ Permite registrar, actualizar, eliminar y consultar la información de las sucur
 
 ---
 
-## ⚙️ Ejecución local
+## Ejecución local
 
 1. Clonar el repositorio  
    ```bash
