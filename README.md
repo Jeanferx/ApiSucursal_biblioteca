@@ -1,6 +1,4 @@
-Microservicio desarrollado en **Spring Boot** para la gestión de **sucursales** dentro del sistema de biblioteca.  
-Permite registrar, actualizar, eliminar y consultar la información de las sucursales que pertenecen a la red de bibliotecas.
-
+**README – ApiSucursal_biblioteca**
 ---
 
 ## Tecnologías utilizadas
